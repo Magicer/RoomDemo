@@ -1,7 +1,6 @@
 package xyz.magicer.roomdemo.data
 
 import android.util.Log
-import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 

@@ -8,11 +8,10 @@ import xyz.magicer.roomdemo.App
 import xyz.magicer.roomdemo.data.basic.User
 import xyz.magicer.roomdemo.data.basic.UserDao
 
-
 @Database(
     entities = [User::class, Person::class, Pet::class],
     version = 4,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 
