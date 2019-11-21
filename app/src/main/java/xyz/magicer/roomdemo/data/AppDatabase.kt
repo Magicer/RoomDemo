@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import xyz.magicer.roomdemo.App
 
-@Database(entities = [User::class], version = 3, exportSchema = false)
+@Database(entities = [User::class], version = 3, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -26,7 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .addMigrations(migration_1_2(), migration_2_3())
+                .addMigrations(migration_1_2, migration_2_3)
                 .build()
         }
     }

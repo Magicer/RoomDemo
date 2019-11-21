@@ -5,7 +5,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 val TAG_M = "migration"
-fun migration_1_2() = object : Migration(1, 2) {
+val migration_1_2: Migration = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
 
         Log.i(TAG_M, "migration_1_2")
@@ -21,7 +21,7 @@ fun migration_1_2() = object : Migration(1, 2) {
 
 //删除 数据库中字段 email
 //或者为某个字段更改名称也是一样的操作
-fun migration_2_3() = object : Migration(2, 3) {
+val migration_2_3: Migration = object : Migration(2, 3) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Log.i(TAG_M, "migration_2_3 ")
         database.execSQL(
