@@ -1,4 +1,4 @@
-package xyz.magicer.roomdemo.data
+package xyz.magicer.roomdemo.data.basic
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

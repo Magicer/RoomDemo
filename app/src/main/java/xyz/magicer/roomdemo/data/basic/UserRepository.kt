@@ -1,4 +1,6 @@
-package xyz.magicer.roomdemo.data
+package xyz.magicer.roomdemo.data.basic
+
+import xyz.magicer.roomdemo.data.AppDatabase
 
 
 class UserRepository private constructor(private val userDao: UserDao) {
@@ -18,7 +20,8 @@ class UserRepository private constructor(private val userDao: UserDao) {
 
         fun getInstance() =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(AppDatabase.getInstance().userDao()).also {
+                instance
+                    ?: UserRepository(AppDatabase.getInstance().userDao()).also {
                     instance = it
                 }
             }

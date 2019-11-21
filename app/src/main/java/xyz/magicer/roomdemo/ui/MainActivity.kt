@@ -1,13 +1,16 @@
 package xyz.magicer.roomdemo.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import xyz.magicer.roomdemo.R
-import xyz.magicer.roomdemo.data.User
-import xyz.magicer.roomdemo.data.UserRepository
+import xyz.magicer.roomdemo.data.basic.User
+import xyz.magicer.roomdemo.data.basic.UserRepository
 import xyz.magicer.roomdemo.random
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
@@ -58,6 +61,22 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 loadUsers()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.one2one -> {
+                startActivity(Intent(this,One2OneActivity::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
     }
 
     private fun loadUsers() {
