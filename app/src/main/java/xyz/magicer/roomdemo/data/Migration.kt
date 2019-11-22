@@ -33,6 +33,7 @@ val MIGRATION_2_3: Migration = object : Migration(2, 3) {
                     "image TEXT NOT NULL," + //注意这里
                     "phone TEXT)"
         )
+
         database.execSQL("INSERT INTO user_temp(id,name,age,address,image,phone) SELECT id,name,age,address,image,phone from users")
         database.execSQL("DROP TABLE IF EXISTS users")
 
@@ -45,16 +46,18 @@ val MIGRATION_2_3: Migration = object : Migration(2, 3) {
 val MIGRATION_3_4: Migration = object : Migration(3, 4) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Log.i(TAG_M, "MIGRATION_3_4 ")
-//        database.execSQL("DROP TABLE IF EXISTS pets ")
-//        database.execSQL("DROP TABLE IF EXISTS persons")
 
-
-        database.execSQL(
-            "CREATE TABLE pets(id INTEGER PRIMARY KEY NOT NULL,name Text,age INTEGER, person_id INTEGER,FOREIGN KEY (person_id) REFERENCES persons(id))"
-        )
-        database.execSQL(
-            "CREATE TABLE persons(id INTEGER PRIMARY KEY NOT NULL, " +
-                    "name TEXT,address TEXT, phone TEXT)"
-        )
+        //升级的时候获取建表语句可以直接从 AppDatabase_Impl类里边直接复制
+        database.execSQL("CREATE TABLE IF NOT EXISTS `persons` (`name` TEXT, `address` TEXT, `phone` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `pets` (`name` TEXT, `age` INTEGER, `person_id` INTEGER, `id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`person_id`) REFERENCES `persons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )")
     }
+}
+
+//在person表中新增字段sex
+val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE persons ADD COLUMN sex text")
+
+    }
+
 }

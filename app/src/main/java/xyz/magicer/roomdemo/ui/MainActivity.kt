@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             }
         }
 
-        //更新用户的名字
+        //更新用户的年龄
         updateLastBtn.setOnClickListener {
             launch {
                 withContext(Dispatchers.IO) {
@@ -71,8 +71,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.one2one -> {
-                startActivity(Intent(this,One2OneActivity::class.java))
+            R.id.relations -> {
+                startActivity(Intent(this,RelationActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
