@@ -40,6 +40,8 @@ public class SqliteDatabaseTestHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS persons");
         db.execSQL("DROP TABLE IF EXISTS pets");
+        db.execSQL("DROP TABLE IF EXISTS `subjects`");
+        db.execSQL("DROP TABLE IF EXISTS `person_subject_join`");
 
         db.close();
     }

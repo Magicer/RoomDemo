@@ -74,3 +74,13 @@ val MIGRATION_6_7: Migration = object : Migration(6, 7) {
     }
 
 }
+
+val MIGRATION_7_8: Migration = object : Migration(7, 8) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE IF NOT EXISTS `subjects` (`name` TEXT, `code` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `person_subject_join` (`p_id` INTEGER NOT NULL, `s_id` INTEGER NOT NULL, PRIMARY KEY(`p_id`, `s_id`), FOREIGN KEY(`p_id`) REFERENCES `persons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`s_id`) REFERENCES `subjects`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )")
+
+
+    }
+
+}

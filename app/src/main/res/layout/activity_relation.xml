@@ -5,11 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.RelationActivity">
+
+    <EditText
+        android:id="@+id/inputEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:text=""
+        android:hint="请输入Id"
+        android:inputType="number"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toTopOf="@id/scrollView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/stateBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/stateBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:text="根据学科"
+        app:layout_constraintBottom_toBottomOf="@id/inputEt"
+        app:layout_constraintLeft_toRightOf="@id/inputEt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/addBtn"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@id/o2mBtn"
+        app:layout_constraintTop_toBottomOf="@id/inputEt">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,31 +60,20 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/addBtn"
+        android:id="@+id/o2mBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="添加一个用户"
+        android:text="O2M"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/updateLastBtn" />
+        app:layout_constraintRight_toLeftOf="@id/m2mBtn" />
 
     <Button
-        android:id="@+id/updateLastBtn"
+        android:id="@+id/m2mBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="更新最后一个"
+        android:text="M2M"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/addBtn"
-        app:layout_constraintRight_toLeftOf="@id/deleteLastBtn" />
-
-    <Button
-        android:id="@+id/deleteLastBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="删除最后一个"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/updateLastBtn"
+        app:layout_constraintLeft_toRightOf="@id/o2mBtn"
         app:layout_constraintRight_toRightOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

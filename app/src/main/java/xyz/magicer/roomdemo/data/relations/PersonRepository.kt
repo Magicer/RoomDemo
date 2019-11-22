@@ -8,6 +8,7 @@ class PersonRepository private constructor(private val personDao: PersonDao) {
 
     suspend fun getPersonPets() = personDao.getPersonPets()
     suspend fun getPersonPetsById(id: Int) = personDao.getPersonPetsById(id)
+    suspend fun getPersonById(id: Int) = personDao.getPersonById(id)
 
     companion object {
 

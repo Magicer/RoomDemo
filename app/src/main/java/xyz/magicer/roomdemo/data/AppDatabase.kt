@@ -11,10 +11,14 @@ import xyz.magicer.roomdemo.data.relations.Person
 import xyz.magicer.roomdemo.data.relations.PersonDao
 import xyz.magicer.roomdemo.data.relations.Pet
 import xyz.magicer.roomdemo.data.relations.PetDao
+import xyz.magicer.roomdemo.data.relations.m2m.PersonSubjectJoin
+import xyz.magicer.roomdemo.data.relations.m2m.PersonSubjectJoinDao
+import xyz.magicer.roomdemo.data.relations.m2m.Subject
+import xyz.magicer.roomdemo.data.relations.m2m.SubjectDao
 
 @Database(
-    entities = [User::class, Person::class, Pet::class],
-    version = 7,
+    entities = [User::class, Person::class, Pet::class, Subject::class, PersonSubjectJoin::class],
+    version = 8,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -22,6 +26,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun personDao(): PersonDao
     abstract fun petDao(): PetDao
+    abstract fun personSubjectJoinDao(): PersonSubjectJoinDao
+    abstract fun subjectDao():SubjectDao
 
     companion object {
         private const val DATABASE_NAME = "room-db"
@@ -41,8 +47,10 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             AppDatabase_Impl.MAX_BIND_PARAMETER_CNT
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,MIGRATION_4_5,
-                    MIGRATION_5_6, MIGRATION_6_7)
+                .addMigrations(
+                    MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
+                    MIGRATION_5_6, MIGRATION_6_7,MIGRATION_7_8
+                )
                 .build()
         }
     }

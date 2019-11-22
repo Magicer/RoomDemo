@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 7,
-    "identityHash": "65d172d99bed3b8e035e996a4f0afde1",
+    "version": 8,
+    "identityHash": "a373e5d0cf765ff5630c50e860326658",
     "entities": [
       {
         "tableName": "users",
@@ -194,29 +194,26 @@
       },
       {
         "tableName": "person_subject_join",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`p_id` INTEGER, `s_id` INTEGER, `id` INTEGER NOT NULL, FOREIGN KEY(`p_id`) REFERENCES `persons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`s_id`) REFERENCES `subjects`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`p_id` INTEGER NOT NULL, `s_id` INTEGER NOT NULL, PRIMARY KEY(`p_id`, `s_id`), FOREIGN KEY(`p_id`) REFERENCES `persons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`s_id`) REFERENCES `subjects`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "personId",
             "columnName": "p_id",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "subjectId",
             "columnName": "s_id",
             "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
-          "columnNames": [],
+          "columnNames": [
+            "p_id",
+            "s_id"
+          ],
           "autoGenerate": false
         },
         "indices": [],
@@ -249,7 +246,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '65d172d99bed3b8e035e996a4f0afde1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a373e5d0cf765ff5630c50e860326658')"
     ]
   }
 }

@@ -1,7 +1,9 @@
 package xyz.magicer.roomdemo.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_relation.*
 import kotlinx.coroutines.*
 import xyz.magicer.roomdemo.R
@@ -9,16 +11,23 @@ import xyz.magicer.roomdemo.data.relations.Person
 import xyz.magicer.roomdemo.data.relations.PersonRepository
 import xyz.magicer.roomdemo.data.relations.Pet
 import xyz.magicer.roomdemo.data.relations.PetRepository
+import xyz.magicer.roomdemo.data.relations.m2m.PersonSubjectJoin
+import xyz.magicer.roomdemo.data.relations.m2m.PersonSubjectJoinRepository
+import xyz.magicer.roomdemo.data.relations.m2m.Subject
+import xyz.magicer.roomdemo.data.relations.m2m.SubjectRepository
 
 class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+    var current = 1
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_relation)
 
         initDatas()
 
-        addBtn.setOnClickListener {
+        o2mBtn.setOnClickListener {
             launch {
                 val person = withContext(Dispatchers.IO) {
                     PersonRepository.getInstance().getPersonPets()
@@ -32,7 +41,70 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
                 textView.text = s.toString()
             }
+        }
 
+        stateBtn.setOnClickListener {
+            if (current == 1) {
+                current = 2
+                stateBtn.text = "根据用户"
+            } else {
+                current = 1
+                stateBtn.text = "根据学科"
+            }
+        }
+
+
+        m2mBtn.setOnClickListener {
+
+
+            val input = inputEt.text.toString().trim()
+
+            launch {
+                if (current == 1) {
+                    if (input.toInt() > 6) {
+                        Toast.makeText(this@RelationActivity, "最大为6", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
+                    val s = withContext(Dispatchers.IO) {
+                        PersonSubjectJoinRepository.getInstance()
+                            .getPersonsForSubject(input.toInt())
+
+                    }
+                    val subject = withContext(Dispatchers.IO) {
+                        SubjectRepository.getInstance().getSubjectById(input.toInt())
+                    }
+
+
+                    val t = s.map {
+                        "    Person id = ${it.id} name = ${it.name}  phone = ${it.phone} \n"
+                    }
+
+                    textView.text =
+                        "Subject id = ${subject.id} name ${subject.name} code${subject.code} \n$t"
+
+                } else {
+                    if (input.toInt() > 4) {
+                        Toast.makeText(this@RelationActivity, "最大为4", Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }
+                    val s = withContext((Dispatchers.IO)) {
+                        PersonSubjectJoinRepository.getInstance()
+                            .getSubjectsForPerson(input.toInt())
+                    }
+
+                    val person = withContext(Dispatchers.IO) {
+                        PersonRepository.getInstance().getPersonById(input.toInt())
+                    }
+
+                    val t = s.map {
+                        "    Subject id = ${it.id} name = ${it.name}  code = ${it.code} \n"
+                    }
+
+                    textView.text = "Person id = ${person.id} name = ${person.name}    \n $t"
+
+
+                }
+            }
 
         }
     }
@@ -104,6 +176,66 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 PersonRepository.getInstance().insert(ps1, ps2, ps3, ps4)
                 PetRepository.getInstance().insertAll(p1, p2, p3, p4, p5, p6, p7)
             }
+            initM2MDatas()
+        }
+
+    }
+
+    private fun initM2MDatas() {
+
+        val s1 = Subject(1)
+        s1.name = "高数"
+        s1.code = "1001"
+
+        val s2 = Subject(2)
+        s2.name = "电路"
+        s2.code = "1002"
+
+        val s3 = Subject(3)
+        s3.name = "计算机基础"
+        s3.code = "1003"
+
+        val s4 = Subject(4)
+        s4.name = "模拟电路"
+        s4.code = "1004"
+        val s5 = Subject(5)
+        s5.name = "数字电路"
+        s5.code = "1005"
+        val s6 = Subject(6)
+        s6.name = "数据库原理"
+        s6.code = "1006"
+
+
+        val ps1 = PersonSubjectJoin(1, 1)
+        val ps2 = PersonSubjectJoin(1, 2)
+        val ps3 = PersonSubjectJoin(1, 5)
+
+        val ps4 = PersonSubjectJoin(2, 6)
+        val ps5 = PersonSubjectJoin(2, 1)
+
+        val ps6 = PersonSubjectJoin(3, 1)
+        val ps7 = PersonSubjectJoin(3, 5)
+        val ps8 = PersonSubjectJoin(3, 2)
+
+        val ps9 = PersonSubjectJoin(4, 2)
+//        val ps10 = PersonSubjectJoin(1,1)
+//        val ps11 = PersonSubjectJoin(1,1)
+//        val ps12 = PersonSubjectJoin(1,1)
+//        val ps13 = PersonSubjectJoin(1,1)
+//        val ps14 = PersonSubjectJoin(1,1)
+//        val ps15 = PersonSubjectJoin(1,1)
+//        val ps16 = PersonSubjectJoin(1,1)
+//
+
+
+        launch {
+            withContext(Dispatchers.IO) {
+                SubjectRepository.getInstance().insertAll(s1, s2, s3, s4, s5, s6)
+                PersonSubjectJoinRepository.getInstance()
+                    .insertAll(ps1, ps2, ps3, ps4, ps5, ps6, ps7, ps8, ps9)
+            }
+
+
         }
 
     }
