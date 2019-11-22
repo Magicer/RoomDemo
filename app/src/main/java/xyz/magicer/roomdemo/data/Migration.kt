@@ -48,8 +48,9 @@ val MIGRATION_3_4: Migration = object : Migration(3, 4) {
         Log.i(TAG_M, "MIGRATION_3_4 ")
 
         //升级的时候获取建表语句可以直接从 AppDatabase_Impl类里边直接复制
+
         database.execSQL("CREATE TABLE IF NOT EXISTS `persons` (`name` TEXT, `address` TEXT, `phone` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))")
-        database.execSQL("CREATE TABLE IF NOT EXISTS `pets` (`name` TEXT, `age` INTEGER, `person_id` INTEGER, `id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`person_id`) REFERENCES `persons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `pets` (`name` TEXT, `age` INTEGER, `person_id` INTEGER, `id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`person_id`) REFERENCES `persons`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )")
     }
 }
 
@@ -58,6 +59,18 @@ val MIGRATION_4_5: Migration = object : Migration(4, 5) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("ALTER TABLE persons ADD COLUMN sex text")
 
+    }
+
+}
+val MIGRATION_5_6: Migration = object : Migration(5, 6) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE persons ADD COLUMN migration_test text")
+    }
+
+}
+val MIGRATION_6_7: Migration = object : Migration(6, 7) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE persons ADD COLUMN migration_test_1 text")
     }
 
 }

@@ -14,7 +14,7 @@ import xyz.magicer.roomdemo.data.relations.PetDao
 
 @Database(
     entities = [User::class, Person::class, Pet::class],
-    version = 5,
+    version = 7,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -41,7 +41,8 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context): AppDatabase {
             AppDatabase_Impl.MAX_BIND_PARAMETER_CNT
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,MIGRATION_4_5)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,MIGRATION_4_5,
+                    MIGRATION_5_6, MIGRATION_6_7)
                 .build()
         }
     }

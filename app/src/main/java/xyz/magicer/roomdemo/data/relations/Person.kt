@@ -8,7 +8,7 @@ data class Person constructor(
     var id: Int = 0
 ) {
 
-    constructor():this(0)
+    constructor() : this(0)
 
     @ColumnInfo(name = "name")
     var name: String? = null
@@ -19,7 +19,13 @@ data class Person constructor(
     var phone: String? = null
 
     @ColumnInfo(name = "sex")
-    var sex:String?=null
+    var sex: String? = null
+
+    @ColumnInfo(name = "migration_test")
+    var migrationTest: String? = null
+
+    @ColumnInfo(name = "migration_test_1")
+    var migrationTest1: String? = null
 
     override fun toString(): String {
         return "Person(id=$id, name=$name, address=$address, phone=$phone, sex=$sex)"

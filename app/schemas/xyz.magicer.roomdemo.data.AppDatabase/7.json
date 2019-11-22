@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 5,
-    "identityHash": "d0a2064ce9b087d95c6ba44378d3c1fd",
+    "version": 7,
+    "identityHash": "9d6f0d5c6e545ef9a985b2fb72ee3ff2",
     "entities": [
       {
         "tableName": "users",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "persons",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `address` TEXT, `phone` TEXT, `sex` TEXT, `migration_test` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `address` TEXT, `phone` TEXT, `sex` TEXT, `migration_test` TEXT, `migration_test_1` TEXT, `id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "name",
@@ -85,6 +85,12 @@
           {
             "fieldPath": "migrationTest",
             "columnName": "migration_test",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "migrationTest1",
+            "columnName": "migration_test_1",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -158,7 +164,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd0a2064ce9b087d95c6ba44378d3c1fd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d6f0d5c6e545ef9a985b2fb72ee3ff2')"
     ]
   }
 }
