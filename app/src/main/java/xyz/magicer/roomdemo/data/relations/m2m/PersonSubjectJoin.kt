@@ -3,7 +3,6 @@ package xyz.magicer.roomdemo.data.relations.m2m
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 import xyz.magicer.roomdemo.data.relations.Person
 
 @Entity(
