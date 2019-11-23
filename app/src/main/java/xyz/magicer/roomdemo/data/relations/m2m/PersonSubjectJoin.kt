@@ -20,7 +20,7 @@ import xyz.magicer.roomdemo.data.relations.Person
             childColumns = ["s_id"]
         )]
 )
-data class PersonSubjectJoin constructor(
+data class PersonSubjectJoin(
     @ColumnInfo(name = "p_id")
     val personId: Int,
     @ColumnInfo(name = "s_id")

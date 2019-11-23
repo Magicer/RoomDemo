@@ -72,7 +72,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         when (item.itemId) {
             R.id.relations -> {
-                startActivity(Intent(this,RelationActivity::class.java))
+                startActivity(Intent(this, RelationActivity::class.java))
+            }
+            R.id.typeConverter -> {
+                startActivity(Intent(this, TypeConvertersActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

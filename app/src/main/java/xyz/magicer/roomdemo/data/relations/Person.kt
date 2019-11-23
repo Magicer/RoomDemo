@@ -1,8 +1,11 @@
 package xyz.magicer.roomdemo.data.relations
 
 import androidx.room.*
+import xyz.magicer.roomdemo.data.converter.HouseConverter
+import xyz.magicer.roomdemo.entity.House
 
 @Entity(tableName = "persons")
+@TypeConverters(HouseConverter::class)
 data class Person constructor(
     @PrimaryKey @ColumnInfo(name = "id")
     var id: Int = 0
@@ -27,8 +30,17 @@ data class Person constructor(
     @ColumnInfo(name = "migration_test_1")
     var migrationTest1: String? = null
 
+    @ColumnInfo(name = "houses")
+    var houses: List<House>? = null
+
     override fun toString(): String {
-        return "Person(id=$id, name=$name, address=$address, phone=$phone, sex=$sex)"
+        return "Person(id=$id, name=$name, address=$address, phone=$phone, sex=$sex, migrationTest=$migrationTest, migrationTest1=$migrationTest1, houses=$houses)"
     }
+
+//    override fun toString(): String {
+//        return "Person(id=$id, name=$name, address=$address, phone=$phone, sex=$sex)"
+//    }
+
+
 
 }

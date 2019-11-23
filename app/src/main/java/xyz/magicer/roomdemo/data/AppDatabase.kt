@@ -18,7 +18,7 @@ import xyz.magicer.roomdemo.data.relations.m2m.SubjectDao
 
 @Database(
     entities = [User::class, Person::class, Pet::class, Subject::class, PersonSubjectJoin::class],
-    version = 8,
+    version = 9,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -49,7 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
             return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .addMigrations(
                     MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-                    MIGRATION_5_6, MIGRATION_6_7,MIGRATION_7_8
+                    MIGRATION_5_6, MIGRATION_6_7,MIGRATION_7_8, MIGRATION_8_9
                 )
                 .build()
         }
