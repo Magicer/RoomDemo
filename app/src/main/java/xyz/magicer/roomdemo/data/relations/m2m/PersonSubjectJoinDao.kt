@@ -1,9 +1,6 @@
 package xyz.magicer.roomdemo.data.relations.m2m
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import xyz.magicer.roomdemo.data.relations.Person
 
 @Dao
@@ -16,6 +13,7 @@ interface PersonSubjectJoinDao {
     suspend fun insert(personSubjectJoin: PersonSubjectJoin)
 
     //获取选择了指定课程的所有人
+
     @Query(
         """
            SELECT * FROM persons
@@ -25,6 +23,11 @@ interface PersonSubjectJoinDao {
            """
     )
     suspend fun getPersonsForSubject(subjectId: Int): List<Person>
+
+    @Transaction
+    @Query("SELECT * FROM persons WHERE id = :id ")
+    suspend fun getPersonWithSubjects(id: Int): PersonWithSubjects
+
 
     //获取某人选的所有课程
     @Query(
@@ -36,5 +39,15 @@ interface PersonSubjectJoinDao {
            """
     )
     suspend fun getSubjectsForPerson(personId: Int): List<Subject>
+
+
+    @Transaction
+    @Query("SELECT * FROM persons")
+    suspend fun getPersonWithSubjects(): List<PersonWithSubjects>
+
+
+    @Transaction
+    @Query("SELECT * FROM subjects")
+    suspend fun getSubjectWithPersons(): List<SubjectWithPersons>
 
 }

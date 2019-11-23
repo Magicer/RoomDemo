@@ -5,7 +5,10 @@ import androidx.room.Relation
 
 data class PersonWithPets(
     @Embedded val person: Person,
-    @Relation(parentColumn = "id", entityColumn = "person_id")
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "person_id"
+    )
     val pets: List<Pet>
 
 ) {

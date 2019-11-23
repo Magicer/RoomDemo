@@ -60,6 +60,30 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             val input = inputEt.text.toString().trim()
 
             launch {
+
+                val list = withContext(Dispatchers.IO) {
+                    PersonSubjectJoinRepository.getInstance().getPersonWithSubjects()
+                }
+                val allStr = list.map {
+                    " Person id = ${it.person.id} name = ${it.person.name} phone = ${it.person.phone}" +
+                            " \n ${it.subjects.map { sub ->
+                                "    Subject id = ${sub.id} name = ${sub.name} code = ${sub.code}\n"
+
+                            }} \n "
+                }
+
+                val swpList = withContext(Dispatchers.IO) {
+                    PersonSubjectJoinRepository.getInstance().getSubjectWithPersons()
+                }
+
+                val swpStr = swpList.map {
+                    " Subject id = ${it.subject.id} name = ${it.subject.name} code = ${it.subject.code}" +
+                            " \n ${it.persons.map { p ->
+                                "    Person id = ${p.id} name = ${p.name} address = ${p.address}\n"
+
+                            }} \n "
+                }
+
                 if (current == 1) {
                     if (input.toInt() > 6) {
                         Toast.makeText(this@RelationActivity, "最大为6", Toast.LENGTH_SHORT).show()
@@ -80,7 +104,7 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                     }
 
                     textView.text =
-                        "Subject id = ${subject.id} name ${subject.name} code${subject.code} \n$t"
+                        "Subject id = ${subject.id} name ${subject.name} code${subject.code} \n $t \n\n\n $swpStr"
 
                 } else {
                     if (input.toInt() > 4) {
@@ -100,7 +124,8 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                         "    Subject id = ${it.id} name = ${it.name}  code = ${it.code} \n"
                     }
 
-                    textView.text = "Person id = ${person.id} name = ${person.name}    \n $t"
+                    textView.text =
+                        "Person id = ${person.id} name = ${person.name}    \n $t \n\n\n $allStr"
 
 
                 }

@@ -4,15 +4,17 @@ import xyz.magicer.roomdemo.data.AppDatabase
 
 class PersonSubjectJoinRepository private constructor(private val psDao: PersonSubjectJoinDao) {
 
-//    suspend fun insert(vararg psDao: PersonSubjectJoinDao) = psDao.insertAll(psDao.toList())
-
-    //    suspend fun getPersonPets() = psDao.getPersonPets()
-//    suspend fun getPersonPetsById(id: Int) = psDao.getPersonPetsById(id)
     suspend fun insertAll(vararg psjs: PersonSubjectJoin) = psDao.insertAll(psjs.toList())
 
     suspend fun getPersonsForSubject(subjectId: Int) = psDao.getPersonsForSubject(subjectId)
 
     suspend fun getSubjectsForPerson(personId: Int) = psDao.getSubjectsForPerson(personId)
+
+    suspend fun getPersonWithSubjects() = psDao.getPersonWithSubjects()
+
+    suspend fun getSubjectWithPersons() = psDao.getSubjectWithPersons()
+
+    suspend fun getPersonWithSubjects(personId: Int) = psDao.getPersonWithSubjects(personId)
 
 
     companion object {

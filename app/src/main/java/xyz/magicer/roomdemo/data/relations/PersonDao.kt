@@ -10,9 +10,11 @@ interface PersonDao {
     @Query("SELECT * FROM persons WHERE id = :id")
     suspend fun getPersonById(id: Int): Person
 
+    @Transaction
     @Query(" SELECT * FROM persons")
     suspend fun getPersonPets(): List<PersonWithPets>
 
+    @Transaction
     @Query(" SELECT * FROM persons WHERE id = :id ")
     suspend fun getPersonPetsById(id: Int): PersonWithPets
 
