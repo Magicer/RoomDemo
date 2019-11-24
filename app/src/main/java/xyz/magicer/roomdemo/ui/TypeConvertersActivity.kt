@@ -51,5 +51,8 @@ class TypeConvertersActivity : AppCompatActivity(), CoroutineScope by MainScope(
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        cancel()
+    }
 }

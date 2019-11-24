@@ -265,4 +265,10 @@ class RelationActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         }
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancel()
+    }
+
 }

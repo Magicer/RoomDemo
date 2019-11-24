@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import xyz.magicer.roomdemo.R
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         loadUsers()
 
         Log.i(TAG, "thread name = ${Thread.currentThread().name}")
+
 
         Log.i(TAG, "currentId = $currentId")
 
@@ -107,4 +110,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             textView.text = text.toString()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancel()
+    }
+
 }
